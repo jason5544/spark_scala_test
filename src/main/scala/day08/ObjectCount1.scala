@@ -32,13 +32,12 @@ object ObjectCount1 {
       (project, url, count)
     })
 
-//    println(project.collect().toBuffer)
+    // println(project.collect().toBuffer)
     val res: RDD[(String, List[(String, String, Int)])] =
       project.groupBy(_._1).mapValues(_.toList.sortBy(_._3).reverse.take(3))
     println(res.collect().toBuffer)
 
     res.saveAsTextFile("result1")
-
     sc.stop()
   }
 
