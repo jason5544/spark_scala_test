@@ -16,7 +16,7 @@ object IPLocation {
       iterator.foreach(line => {
         ps = conn.prepareStatement(sql)
         ps.setString(1, line._1)
-        println(line._1)
+//        println(line._1)
         ps.setInt(2, line._2)
         ps.setDate(3, new Date(System.currentTimeMillis()))
         ps.executeUpdate()
@@ -65,7 +65,7 @@ object IPLocation {
     val conf = new SparkConf().setAppName("IPLocation").setMaster("local[*]")
     val sc: SparkContext = new SparkContext(conf)
 
-    val ipRulesRdd = sc.textFile("ip/ip.txt").map(line => {
+    val ipRulesRdd = sc.textFile("data/ip/ip.txt").map(line => {
       val fileds = line.split("\\|")
       val startIP = fileds(2)
       val endIP = fileds(3)
@@ -76,7 +76,7 @@ object IPLocation {
     val ipRuleArray = ipRulesRdd.collect()
     val ipRulesBroadcast = sc.broadcast(ipRuleArray)
 
-    val ipsRDD = sc.textFile("ip/access_log").map(line => {
+    val ipsRDD = sc.textFile("data/ip/access_log").map(line => {
       val fields = line.split("\\|")
       val ip = fields(1)
       val ipTOLong = ip2Long(ip)

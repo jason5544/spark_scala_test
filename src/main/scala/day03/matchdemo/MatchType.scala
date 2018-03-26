@@ -2,25 +2,29 @@ package day03.matchdemo
 
 import scala.util.Random
 
+
+class MatchType {
+
+}
+
 /**
-  * 模式匹配
-  *
+  * 类型匹配
   */
 
 object MatchType {
-  def main(args:Array[String]): Unit = {
-    val arr = Array("abcde", "zhoudongyv")
+  def main(args: Array[String]): Unit = {
+    val arr = Array("abced", 100, 3.14, true, MatchType)
 
-    val name = arr(Random.nextInt(arr.length))
+    val element = arr(Random.nextInt(arr.length))
 
-    println(name)
+    println(element)
 
-    name match {
-      case "zhoudongyv" => println("周东雨")
-      case _ => println("Nothing")
+    element match {
+      case str: String => println(s"match String: $str")
+      case int: Int => println(s"match int: $int")
+      case bool: Boolean => println(s"match Boolean: $bool")
+      case matchType: MatchType => println(s"match MatchType: $matchType")
+      case _: Any => println("Not match")
     }
-
-
-
   }
 }
